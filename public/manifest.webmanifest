@@ -1,0 +1,21 @@
+{
+  "name": "Backyard Ultra Planner",
+  "short_name": "BYU Planner",
+  "description": "Plan backyard ultra pacing and rest for 4.167-mile laps.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2f4f8",
+  "theme_color": "#0a84ff",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
