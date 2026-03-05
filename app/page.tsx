@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { simulateBackyardUltra } from "@/lib/calculations";
 import { createScenarioName, loadScenarios, saveScenarios } from "@/lib/storage";
-import { formatClock, formatDuration, fromMinuteSecond, toMinuteSecond } from "@/lib/time";
+import { formatDuration, fromMinuteSecond, toMinuteSecond } from "@/lib/time";
 import { LAP_WINDOW_SEC, MIN_RUN_SEC_PER_LAP, type ScenarioInput } from "@/lib/types";
 
 const DEFAULT_SCENARIO: ScenarioInput = {
@@ -104,11 +104,9 @@ export default function HomePage() {
     return simulateBackyardUltra(activeScenario);
   }, [activeScenario]);
 
-  const projectedFinish = simulation.laps.at(-1)?.restEndIso;
   const lapTimeParts = toMinuteSecond(simulation.summary.lapRunSec);
   const restParts = toMinuteSecond(simulation.summary.restPerLapSec);
   const restBand = getRestBand(simulation.summary.restPerLapSec);
-  const hasStartTime = Boolean(activeScenario.startTimeIso);
 
   function updateScenario(patch: Partial<ScenarioInput>) {
     const next = scenarios.map((scenario) =>
@@ -340,29 +338,11 @@ export default function HomePage() {
         </article>
 
         <article className="input-card glass-panel">
-          <h2>Race Start (optional)</h2>
-          <input
-            type="datetime-local"
-            value={
-              activeScenario.startTimeIso
-                ? new Date(activeScenario.startTimeIso).toISOString().slice(0, 16)
-                : ""
-            }
-            onChange={(event) => {
-              const value = event.currentTarget.value;
-              updateScenario({ startTimeIso: value ? new Date(value).toISOString() : undefined });
-            }}
-          />
-          <p>Set this if you want clock times in the lap schedule.</p>
-        </article>
-
-        <article className="input-card glass-panel">
           <h2>Secondary Metrics</h2>
           <p>Pace / mile: {formatPace(Math.round(simulation.summary.paceSecPerMile))}</p>
           <p>Total Elapsed: {formatDuration(simulation.summary.totalElapsedSec)}</p>
           <p>Total Run: {formatDuration(simulation.summary.totalRunSec)}</p>
           <p>Total Rest: {formatDuration(simulation.summary.totalRestSec)}</p>
-          <p>Projected Finish: {formatClock(projectedFinish)}</p>
         </article>
       </section>
 
@@ -460,22 +440,6 @@ export default function HomePage() {
                 <span>Rest</span>
                 <span>{formatDuration(lap.restSec)}</span>
               </div>
-              {hasStartTime ? (
-                <>
-                  <div className="lap-card-row">
-                    <span>Lap Start</span>
-                    <span>{formatClock(lap.lapStartIso)}</span>
-                  </div>
-                  <div className="lap-card-row">
-                    <span>Lap Finish</span>
-                    <span>{formatClock(lap.lapFinishIso)}</span>
-                  </div>
-                  <div className="lap-card-row">
-                    <span>Rest End</span>
-                    <span>{formatClock(lap.restEndIso)}</span>
-                  </div>
-                </>
-              ) : null}
               <div className="lap-card-row">
                 <span>Cumulative</span>
                 <span>{formatDuration(lap.cumulativeSec)}</span>
@@ -491,9 +455,6 @@ export default function HomePage() {
                 <th>Miles</th>
                 <th>Run</th>
                 <th>Rest</th>
-                {hasStartTime ? <th>Lap Start</th> : null}
-                {hasStartTime ? <th>Lap Finish</th> : null}
-                {hasStartTime ? <th>Rest End</th> : null}
                 <th>Cumulative</th>
               </tr>
             </thead>
@@ -504,9 +465,6 @@ export default function HomePage() {
                   <td>{lap.distanceMiles.toFixed(3)}</td>
                   <td>{formatDuration(lap.runSec)}</td>
                   <td>{formatDuration(lap.restSec)}</td>
-                  {hasStartTime ? <td>{formatClock(lap.lapStartIso)}</td> : null}
-                  {hasStartTime ? <td>{formatClock(lap.lapFinishIso)}</td> : null}
-                  {hasStartTime ? <td>{formatClock(lap.restEndIso)}</td> : null}
                   <td>{formatDuration(lap.cumulativeSec)}</td>
                 </tr>
               ))}
