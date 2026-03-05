@@ -406,11 +406,11 @@ export default function HomePage() {
         <div className="relationship-rules">
           <div className="rule-item good">
             <span className="rule-icon">📈</span>
-            <p>Lower run time / lap -> more rest.</p>
+            <p>Lower run time / lap → more rest.</p>
           </div>
           <div className="rule-item bad">
             <span className="rule-icon">📉</span>
-            <p>Higher run time / lap -> less rest.</p>
+            <p>Higher run time / lap → less rest.</p>
           </div>
         </div>
         <div className="rest-band-grid">
