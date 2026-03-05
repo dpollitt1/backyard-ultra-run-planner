@@ -427,6 +427,40 @@ export default function HomePage() {
 
       <section className="table-section glass-panel">
         <h2>Lap Schedule</h2>
+        <div className="lap-cards">
+          {simulation.laps.map((lap) => (
+            <article key={`card-${lap.lap}`} className="lap-card">
+              <div className="lap-card-row">
+                <strong>Lap {lap.lap}</strong>
+                <span>{lap.distanceMiles.toFixed(3)} mi</span>
+              </div>
+              <div className="lap-card-row">
+                <span>Run</span>
+                <span>{formatDuration(lap.runSec)}</span>
+              </div>
+              <div className="lap-card-row">
+                <span>Rest</span>
+                <span>{formatDuration(lap.restSec)}</span>
+              </div>
+              <div className="lap-card-row">
+                <span>Lap Start</span>
+                <span>{formatClock(lap.lapStartIso)}</span>
+              </div>
+              <div className="lap-card-row">
+                <span>Lap Finish</span>
+                <span>{formatClock(lap.lapFinishIso)}</span>
+              </div>
+              <div className="lap-card-row">
+                <span>Rest End</span>
+                <span>{formatClock(lap.restEndIso)}</span>
+              </div>
+              <div className="lap-card-row">
+                <span>Cumulative</span>
+                <span>{formatDuration(lap.cumulativeSec)}</span>
+              </div>
+            </article>
+          ))}
+        </div>
         <div className="table-wrap">
           <table>
             <thead>
