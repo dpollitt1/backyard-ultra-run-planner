@@ -25,6 +25,20 @@ npm run dev
 
 Open http://localhost:3000.
 
+## Deploy to GitHub Pages
+
+This repo is configured to auto-deploy to GitHub Pages on every push to `main` via GitHub Actions.
+
+One-time setup in GitHub:
+
+1. Open repo `Settings` -> `Pages`
+2. Under `Build and deployment`, set `Source` to `GitHub Actions`
+3. Push to `main` (or run the `Deploy To GitHub Pages` workflow manually)
+
+Site URL:
+
+- https://dpollitt1.github.io/backyard-ultra-run-planner/
+
 ## Test
 
 ```bash

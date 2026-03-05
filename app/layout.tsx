@@ -2,18 +2,20 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PwaRegister } from "@/components/pwa-register";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: "Backyard Ultra Run Planner",
   description: "Plan pace, rest, and laps for a Backyard Ultra race.",
-  manifest: "/manifest.webmanifest",
+  manifest: `${basePath}/manifest.webmanifest`,
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Backyard Ultra Run Planner",
   },
   icons: {
-    icon: "/icon.svg",
-    apple: "/apple-icon.svg",
+    icon: `${basePath}/icon.svg`,
+    apple: `${basePath}/apple-icon.svg`,
   },
 };
 
